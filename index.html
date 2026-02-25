@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VCS LLC – Strategic Consulting Solutions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a1628;
+      --deep: #0d1f3c;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #f7f3ec;
+      --muted: #8a9bb5;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: #e8edf5; overflow-x: hidden; }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s, backdrop-filter 0.4s; }
+    nav.scrolled { background: rgba(10,22,40,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); letter-spacing: -0.5px; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; margin-left: 2rem; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 0 2rem; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,168,76,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(13,31,60,0.8) 0%, transparent 70%); }
+    .grid-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
+    .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; font-weight: 900; margin-bottom: 1.5rem; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero p { font-size: 1.1rem; line-height: 1.8; color: var(--muted); max-width: 520px; margin-bottom: 2.5rem; }
+    .btn-gold { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2.2rem; border-radius: 2px; transition: all 0.25s; border: none; cursor: pointer; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--cream); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 2.2rem; border-radius: 2px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s; cursor: pointer; }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats { position: absolute; right: 8%; bottom: 15%; display: flex; flex-direction: column; gap: 2rem; z-index: 2; }
+    .stat-item { text-align: right; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+
+    /* SECTION */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-tag { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 1rem; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 540px; }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: 1.5rem 0 2.5rem; }
+
+    /* ABOUT */
+    #about { background: var(--deep); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-feature { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
+    .about-feature .icon { width: 42px; height: 42px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 2px; font-size: 1.1rem; }
+    .about-feature h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .about-feature p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 4rem; background: rgba(201,168,76,0.1); }
+    .service-card { background: var(--navy); padding: 2.5rem; transition: background 0.3s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: rgba(13,31,60,0.9); }
+    .service-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.75rem; font-weight: 700; }
+    .service-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* EDUCATION */
+    #education { background: var(--deep); }
+    .edu-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .edu-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .edu-card { background: rgba(10,22,40,0.8); border: 1px solid rgba(201,168,76,0.12); padding: 1.8rem; border-radius: 2px; transition: border-color 0.3s, transform 0.3s; }
+    .edu-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+    .edu-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--gold-light); }
+    .edu-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .solution-list { list-style: none; padding: 0; }
+    .solution-list li { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; color: #bfcbdb; line-height: 1.5; }
+    .solution-list li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 0.1rem; }
+
+    /* SIMULATION */
+    .sim-banner { background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(13,31,60,0.6) 100%); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; padding: 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; margin-top: 4rem; }
+    .sim-banner h3 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; margin-bottom: 1rem; }
+    .sim-banner p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 500px; }
+    .sim-features { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+    .sim-tag { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); color: var(--gold-light); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 0.9rem; border-radius: 1px; }
+
+    /* LEADERS */
+    #leaders { background: var(--navy); }
+    .leaders-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
+    .leader-card { display: flex; gap: 1.5rem; padding: 2rem; background: var(--deep); border-left: 3px solid var(--gold); transition: transform 0.3s; }
+    .leader-card:hover { transform: translateX(6px); }
+    .leader-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: rgba(201,168,76,0.2); line-height: 1; flex-shrink: 0; min-width: 50px; }
+    .leader-card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .leader-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    /* CTA */
+    #contact { background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%); position: relative; overflow: hidden; }
+    #contact::before { content: 'VCS'; position: absolute; font-family: 'Playfair Display', serif; font-size: 20rem; font-weight: 900; color: rgba(201,168,76,0.03); top: -3rem; right: -3rem; line-height: 1; pointer-events: none; }
+    .cta-inner { text-align: center; max-width: 680px; margin: 0 auto; }
+    .cta-inner h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 1.5rem; }
+    .cta-inner p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 2.5rem; }
+    .cta-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; }
+    .cta-form input { flex: 1; padding: 0.9rem 1.2rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-right: none; color: white; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.3s; }
+    .cta-form input:focus { border-color: var(--gold); }
+    .cta-form input::placeholder { color: var(--muted); }
+
+    /* FOOTER */
+    footer { background: #050e1a; padding: 3rem 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-links a { font-size: 0.8rem; color: var(--muted); margin-left: 1.5rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.8rem; color: rgba(138,155,181,0.5); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s, transform 0.7s; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-d1 { transition-delay: 0.1s; }
+    .fade-up-d2 { transition-delay: 0.2s; }
+    .fade-up-d3 { transition-delay: 0.3s; }
+
+    @media (max-width: 900px) {
+      .about-grid, .edu-hero, .sim-banner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .leaders-grid { grid-template-columns: 1fr; }
+      .edu-cards { grid-template-columns: 1fr; }
+      .hero-stats { display: none; }
+      .cta-form { flex-direction: column; }
+      .cta-form input { border-right: 1px solid rgba(255,255,255,0.15); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo-text">VCS LLC</div>
+  <div class="nav-links hidden md:flex">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#education">Education</a>
+    <a href="#leaders">For Leaders</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="btn-gold hidden md:flex" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Strategic Consulting Solutions</div>
+    <h1>Empowering<br/><em>Businesses</em> &amp;<br/>Education Leaders</h1>
+    <p>At VCS LLC, we drive growth, enhance efficiency, and foster innovation — with specialized expertise in Social Work education solutions for colleges and universities.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <button class="btn-gold" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Our Solutions ↓</button>
+      <button class="btn-outline" onclick="document.getElementById('education').scrollIntoView({behavior:'smooth'})">Education Focus</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item fade-up fade-up-d1">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Institutions Served</div>
+    </div>
+    <div class="stat-item fade-up fade-up-d2">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item fade-up fade-up-d3">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="fade-up">
+        <div class="section-tag">Who We Are</div>
+        <h2 class="section-title">Consulting with<br/><em>Purpose</em> &amp; Precision</h2>
+        <div class="gold-line"></div>
+        <p class="section-sub" style="margin-bottom:2rem;">VCS LLC partners with businesses and educational institutions to deliver transformative consulting strategies. We believe the best outcomes happen where strategic insight meets human connection.</p>
+        <button class="btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Partner With Us</button>
+      </div>
+      <div>
+        <div class="about-feature fade-up fade-up-d1">
+          <div class="icon">🎯</div>
+          <div>
+            <h4>Strategic Growth</h4>
+            <p>Customized roadmaps that align with your institutional mission and drive measurable, sustainable results.</p>
+          </div>
+        </div>
+        <div class="about-feature fade-up fade-up-d2">
+          <div class="icon">⚡</div>
+          <div>
+            <h4>Operational Efficiency</h4>
+            <p>Streamlined workflows and process optimization that free your team to focus on what matters most.</p>
+          </div>
+        </div>
+        <div class="about-feature fade-up fade-up-d3">
+          <div class="icon">🔬</div>
+          <div>
+            <h4>Innovation Integration</h4>
+            <p>Forward-thinking technology adoption strategies tailored to academic and professional environments.</p>
+          </div>
+        </div>
+        <div class="about-feature fade-up">
+          <div class="icon">🤝</div>
+          <div>
+            <h4>Human-Centered Approach</h4>
+            <p>Every solution we design centers the human experience — students, faculty, and administrators alike.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--navy);">
+  <div class="container">
+    <div style="text-align:center;max-width:600px;margin:0 auto 1rem;" class="fade-up">
+      <div class="section-tag" style="justify-content:center;display:flex;">What We Do</div>
+      <h2 class="section-title">Comprehensive Consulting<br/>Across Every Domain</h2>
+    </div>
+    <div style="width:60px;height:3px;background:var(--gold);margin:1.5rem auto 0;"></div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">📊</div>
+        <h3>Business Strategy</h3>
+        <p>End-to-end strategic planning, market analysis, and growth consulting for organizations at every stage of development.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d1">
+        <div class="service-icon">🎓</div>
+        <h3>Social Work Education</h3>
+        <p>Specialized curriculum consulting for BSW, MSW, and doctoral programs — from accreditation prep to pedagogical design.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d2">
+        <div class="service-icon">💻</div>
+        <h3>Technology Integration</h3>
+        <p>Helping academic institutions adopt, adapt, and maximize emerging technologies within their existing academic structures.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🧪</div>
+        <h3>Simulation & Practice Labs</h3>
+        <p>Design and implementation of clinical simulation labs, virtual role-play environments, and experiential learning platforms.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d1">
+        <div class="service-icon">📈</div>
+        <h3>Program Assessment</h3>
+        <p>Data-driven evaluation frameworks that align student outcomes with professional standards and institutional goals.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d2">
+        <div class="service-icon">🌐</div>
+        <h3>Change Management</h3>
+        <p>Guiding organizations through transformational change with stakeholder engagement and structured implementation plans.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION SECTION -->
+<section id="education">
+  <div class="container">
+    <div class="edu-hero">
+      <div class="fade-up">
+        <div class="section-tag">Education Solutions</div>
+        <h2 class="section-title">Transforming<br/>Social Work<br/><em>Education</em></h2>
+        <div class="gold-line"></div>
+        <p class="section-sub">VCS LLC is a dedicated partner for colleges and universities seeking to elevate their Social Work programs through innovative learning tools, student-centered practice environments, and evidence-based simulations.</p>
+        <ul class="solution-list" style="margin-top:1.5rem;">
+          <li>Competency-based curriculum design aligned with CSWE standards</li>
+          <li>Immersive case simulation platforms for field prep</li>
+          <li>Peer learning and reflective practice frameworks</li>
+          <li>Student performance analytics and early-intervention alerts</li>
+          <li>Virtual client interaction and role-play modules</li>
+          <li>Hybrid and online program development support</li>
+        </ul>
+      </div>
+      <div class="fade-up fade-up-d2">
+        <div class="edu-cards">
+          <div class="edu-card">
+            <h4>🧑‍🎓 Student Learning</h4>
+            <p>Structured, scaffolded learning pathways that bridge classroom theory and real-world social work practice.</p>
+          </div>
+          <div class="edu-card">
+            <h4>🔄 Practice Simulations</h4>
+            <p>Realistic scenario-based simulations covering crisis intervention, family counseling, community organizing, and more.</p>
+          </div>
+          <div class="edu-card">
+            <h4>📋 Field Readiness</h4>
+            <p>Pre-placement preparation tools ensuring students enter field placements with confidence and core competencies.</p>
+          </div>
+          <div class="edu-card">
+            <h4>📚 Curriculum Alignment</h4>
+            <p>Mapping coursework to EPAS competencies and accreditation requirements with streamlined documentation support.</p>
+          </div>
+        </div>
+
+        <div class="sim-banner" style="margin-top:1.5rem;padding:2.5rem;grid-template-columns:1fr;">
+          <div>
+            <h3 style="font-size:1.4rem;">Simulation-Based Learning</h3>
+            <p>Our simulation environments replicate authentic social work scenarios — from intake interviews to crisis response — giving students safe, structured spaces to develop critical skills before entering the field.</p>
+            <div class="sim-features">
+              <span class="sim-tag">Virtual Role-Play</span>
+              <span class="sim-tag">Case Studies</span>
+              <span class="sim-tag">Group Scenarios</span>
+              <span class="sim-tag">AI-Assisted Feedback</span>
+              <span class="sim-tag">Debriefing Tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERS SECTION -->
+<section id="leaders">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+      <div class="fade-up">
+        <div class="section-tag">For University Leaders</div>
+        <h2 class="section-title">Integrating Technology<br/>Into Your <em>Programs</em></h2>
+        <div class="gold-line"></div>
+        <p class="section-sub">We work hand-in-hand with deans, program directors, and faculty to develop technology adoption strategies that are practical, pedagogically sound, and sustainable for your institution.</p>
+        <button class="btn-gold" style="margin-top:2rem;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Schedule a Consultation</button>
+      </div>
+      <div>
+        <div class="leaders-grid">
+          <div class="leader-card fade-up">
+            <div class="leader-num">01</div>
+            <div>
+              <h4>Tech Needs Assessment</h4>
+              <p>Comprehensive audit of your current digital infrastructure and identification of strategic integration opportunities.</p>
+            </div>
+          </div>
+          <div class="leader-card fade-up fade-up-d1">
+            <div class="leader-num">02</div>
+            <div>
+              <h4>Faculty Development</h4>
+              <p>Professional development workshops and coaching to empower educators in adopting new tools confidently.</p>
+            </div>
+          </div>
+          <div class="leader-card fade-up fade-up-d2">
+            <div class="leader-num">03</div>
+            <div>
+              <h4>LMS Optimization</h4>
+              <p>Maximize your learning management system's potential through custom configurations and workflow design.</p>
+            </div>
+          </div>
+          <div class="leader-card fade-up fade-up-d3">
+            <div class="leader-num">04</div>
+            <div>
+              <h4>Innovation Roadmaps</h4>
+              <p>Multi-year technology integration plans that grow with your program and respond to evolving educational standards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-inner fade-up">
+      <div class="section-tag" style="justify-content:center;display:flex;">Get In Touch</div>
+      <h2 class="section-title">Ready to Transform<br/>Your <em>Institution?</em></h2>
+      <p>Whether you're a business leader seeking strategic growth or a university administrator ready to revolutionize your Social Work program — VCS LLC is your partner from vision to execution.</p>
+      <div class="cta-form">
+        <input type="email" placeholder="Enter your email address" id="emailInput" />
+        <button class="btn-gold" onclick="handleSubmit()">Request a Call</button>
+      </div>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:1rem;">Or email us directly at <a href="mailto:info@vcsllc.com" style="color:var(--gold);">info@vcsllc.com</a></p>
+      <div id="success-msg" style="display:none;margin-top:1rem;padding:0.75rem 1.5rem;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold-light);font-size:0.9rem;border-radius:2px;">
+        ✓ Thank you! We'll be in touch within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo-text" style="font-size:1.2rem;">VCS LLC</div>
+      <div class="footer-copy" style="margin-top:0.5rem;">© 2025 VCS LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#education">Education</a>
+      <a href="#leaders">Leaders</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit() {
+    const email = document.getElementById('emailInput').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').style.borderColor = 'rgba(255,80,80,0.5)';
+      document.getElementById('emailInput').placeholder = 'Please enter a valid email';
+      return;
+    }
+    document.getElementById('emailInput').style.borderColor = '';
+    document.getElementById('success-msg').style.display = 'block';
+    document.getElementById('emailInput').value = '';
+  }
+
+  document.getElementById('emailInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+</body>
+</html>
